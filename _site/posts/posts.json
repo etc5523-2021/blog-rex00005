@@ -1,22 +1,5 @@
 [
   {
-    "path": "posts/2021-09-01-blog1/",
-    "title": "COVID-19 in Saudi Arabia",
-    "description": "A short description of the post.",
-    "author": [
-      {
-        "name": "Xiaoyu Tian",
-        "url": {}
-      }
-    ],
-    "date": "2021-09-01",
-    "categories": [],
-    "contents": "\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n",
-    "preview": "posts/2021-09-01-blog1/blog1_files/figure-html5/unnamed-chunk-4-1.png",
-    "last_modified": "2021-09-02T02:39:52+10:00",
-    "input_file": {}
-  },
-  {
     "path": "posts/welcome/",
     "title": "Welcome to my blog",
     "description": "Welcome to my new blog. I hope you enjoy \nthe reading!",
@@ -32,5 +15,22 @@
     "preview": {},
     "last_modified": "2021-09-01T17:11:43+10:00",
     "input_file": {}
+  },
+  {
+    "path": "posts/2021-09-01-blog1/",
+    "title": "COVID-19 in Saudi Arabia",
+    "description": "A short description of the post.",
+    "author": [
+      {
+        "name": "Xiaoyu Tian",
+        "url": {}
+      }
+    ],
+    "date": "2021-09-01",
+    "categories": [],
+    "contents": "\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n{\"x\":{\"style\":\"bootstrap\",\"filter\":\"none\",\"data\":[[\"1\",\"2\",\"3\",\"4\",\"5\",\"6\",\"7\",\"8\",\"9\",\"10\",\"11\",\"12\",\"13\",\"14\",\"15\",\"16\"],[\"Turkey\",\"Iran\",\"Iraq\",\"Israel\",\"Jordan\",\"United Arab Emirates\",\"Lebanon\",\"Saudi Arabia\",\"Kuwait\",\"Oman\",\"Egypt\",\"Bahrain\",\"Qatar\",\"Cyprus\",\"Syria\",\"Yemen\"],[76805524,66429284,31129225,7233701,6342948,4798491,4017095,28686633,2691158,3418085,83082869,727785,833285,531640,20178485,23822783],[6445011,5099857,1908980,1073395,807537,720411,610319,551830,412279,306364,305177,273928,233346,114378,29928,9341],[8.39,7.68,6.13,14.84,12.73,15.01,15.19,1.92,15.32,8.96,0.37,37.64,28,21.51,0.15,0.04]],\"container\":\"<table class=\\\"table table-striped table-hover row-border order-column display\\\">\\n  <thead>\\n    <tr>\\n      <th> <\\/th>\\n      <th>country<\\/th>\\n      <th>pop_est<\\/th>\\n      <th>cases<\\/th>\\n      <th>percentage infected %<\\/th>\\n    <\\/tr>\\n  <\\/thead>\\n<\\/table>\",\"options\":{\"columnDefs\":[{\"className\":\"dt-right\",\"targets\":[2,3,4]},{\"orderable\":false,\"targets\":0}],\"order\":[],\"autoWidth\":false,\"orderClasses\":false}},\"evals\":[],\"jsHooks\":[]}\r\n\r\n\r\n\r\n",
+    "preview": "posts/2021-09-01-blog1/blog1_files/figure-html5/unnamed-chunk-4-1.png",
+    "last_modified": "2021-09-02T03:39:25+10:00",
+    "input_file": "blog1.knit.md"
   }
 ]

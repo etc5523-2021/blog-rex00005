@@ -74,14 +74,29 @@ mideast_confirmed %>%
   geom_sf(mapping = aes(geometry = geometry, fill = `Cases in thousands`), size = 0.3) +
   theme_map()+
   scale_fill_gradient2(low = "grey", mid = "white", high = "brown", midpoint = .02)+
-  theme(legend.position = "right") +
+  theme(legend.position = "right", panel.background = element_rect(fill = 'aliceblue')) +
   geom_sf_text(mapping = aes(geometry = geometry, label = country), data = mideast_confirmed, stat = "sf_coordinates", nudge_x = 0,
   nudge_y = 0,
   check_overlap = FALSE)+
   labs(title = " Total number of cases (in thousands) confirmed in Middle East areas")
 ```
 
+```{r}
+table_mideast <- coronavirus %>% 
+  right_join(mideast, by = c("country" = "name")) %>% 
+  group_by(country, pop_est) %>%
+  summarise(cases = sum(cases)) %>% 
+  mutate(`Percentage Infected %` = round(100*cases/pop_est, 2)) %>% 
+  arrange(desc(cases)) %>% 
+  rename("Country" = country,  "Population"= pop_est, "Total Number of Infection" = cases)
 
+```
+```{r}
+datatable(table_mideast,
+          options = list(),
+          class = "display",
+          caption = "Table 1: This table displays the Covid-19 infection rates in the middle east countries")
+```
 
 
 
