@@ -86,9 +86,11 @@ table_mideast <- coronavirus %>%
   right_join(mideast, by = c("country" = "name")) %>% 
   group_by(country, pop_est) %>%
   summarise(cases = sum(cases)) %>% 
-  mutate(`Percentage Infected %` = round(100*cases/pop_est, 2)) %>% 
+  mutate(`Infection Rate %` = round(100*cases/pop_est, 2)) %>% 
   arrange(desc(cases)) %>% 
-  rename("Country" = country,  "Population"= pop_est, "Total Number of Infection" = cases)
+  rename("Country" = country,  "Population"= pop_est, "Total Number of Infection" = cases) 
+
+table_mideast$`Rank of Least Infection Rate` <- c("7","6","5","10", "9", "11","12","4","13","8","3","16","15","14","2","1")
 
 ```
 ```{r}
