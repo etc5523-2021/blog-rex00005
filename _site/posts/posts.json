@@ -1,0 +1,36 @@
+[
+  {
+    "path": "posts/2021-09-01-blog1/",
+    "title": "COVID-19 in Saudi Arabia",
+    "description": "A short description of the post.",
+    "author": [
+      {
+        "name": "Xiaoyu Tian",
+        "url": {}
+      }
+    ],
+    "date": "2021-09-01",
+    "categories": [],
+    "contents": "\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n",
+    "preview": "posts/2021-09-01-blog1/blog1_files/figure-html5/unnamed-chunk-4-1.png",
+    "last_modified": "2021-09-02T02:39:52+10:00",
+    "input_file": {}
+  },
+  {
+    "path": "posts/welcome/",
+    "title": "Welcome to my blog",
+    "description": "Welcome to my new blog. I hope you enjoy \nthe reading!",
+    "author": [
+      {
+        "name": "Xiaoyu Tian",
+        "url": {}
+      }
+    ],
+    "date": "2021-09-01",
+    "categories": [],
+    "contents": "\r\n\r\n\r\n\r\n",
+    "preview": {},
+    "last_modified": "2021-09-01T17:11:43+10:00",
+    "input_file": {}
+  }
+]
