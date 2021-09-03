@@ -10,7 +10,8 @@ output:
     self_contained: false
     toc: true
     toc_float: true
-    
+    includes:
+       in_header: banner2.html
 ---
 
 
@@ -21,7 +22,6 @@ library(DT)
 library(sf)
 library(ggthemes)
 library(kableExtra)
-library(plotly)
 library(rnaturalearth)
 library(rnaturalearthdata)
 library(rgeos)
@@ -123,7 +123,7 @@ plot <- ggplot(data =  plot_world_join)+
 	theme_minimal() +
 	theme(panel.background = element_rect(fill = "aliceblue"), 
 		legend.position = "right") +
-	ggtitle("Map of Middle East Covid-19 Infection Situation") +
+	ggtitle("Figure1: Map of Middle East Covid-19 Infection Situation") +
   xlab("Longitude")+
   ylab("Latitude")+
   labs(fill = "Cases in thousands ('000)") +
@@ -143,7 +143,7 @@ The UAE and Saudi Arabia have reacted pre-emptively and have contributed to flat
 
 
 ### Iran
-Iran’s belated response and initial denials have transformed it into the epicentre of the Covid-19 pandemic in the Middle East with tens of thousands of infections. The first reported Covid-19 deaths in the MENA region occurred in the Iranian holy city of Qom when two pilgrims died as a result of the virus. Despite this knowledge, Iran's refusal to impose a lockdown on its population in February 2020, has allowed the virus to spread into other countries, including Afghanistan, Bahrain, Kuwait and Lebanon (Frantzman, 2020).
+Iran’s belated response and initial denials have transformed it into the epicenter of the Covid-19 pandemic in the Middle East with tens of thousands of infections. The first reported Covid-19 deaths in the MENA region occurred in the Iranian holy city of Qom when two pilgrims died as a result of the virus. Despite this knowledge, Iran's refusal to impose a lockdown on its population in February 2020, has allowed the virus to spread into other countries, including Afghanistan, Bahrain, Kuwait and Lebanon (Frantzman, 2020).
 
 ### Turkey
 Iran is not the only country that had false cognition on the coronavirus situation. When the virus first appeared in Turkey, the government underestimated the spread speed of the virus and did not imposed any social mobility, which made its densely populated cities vulerable. Also, the medical system in Turkey was challenged.
@@ -172,10 +172,6 @@ table_mideast <- coronavirus %>%
 table_mideast$`Rank of the Lowest Infection Rate` <- rank
 ```
 
-
-
-
-
 ```{r}
 table_mideast %>% 
   kable(caption = "This table displays the Covid-19 infection situation in the 16 middle east countries.", 
@@ -186,9 +182,10 @@ table_mideast %>%
   scroll_box(width = "100%", height = "400px") 
 ```
 
+Not surprisingly, Turkey and Iran are ranked the top 2 in terms of the number of infection cases, given the knowledge from the previous news story about how they responded to the pandemic. Yemen has recorded the lowest confirmed cases, which is over 1/650 of the number of cases in Turkey. Saudi Arabia has recorded around 551,000 cases, which is ranked in the middle of the 16 countries. However, when we take the population into account, Saudi Arabia has ranked the 4th in terms of the epidemic prevention. Turkey is ranked the 7th in terms of lower infection rate when taking account the population. It is noted that Yemen still outperforms the other countries in terms of the infection rate.
 
 # Situation in Saudi Arabia
-
+Until 31 August 2021, the total Covid-19 infection cases in Saudi Arabia have reached 550,000. Within the total infection cases, 8400 cases are recorded as death, which means the mortality rate in Saudi Arabia is 1.5%. This is actually lower than the global average morality rate of 2% according to the statistics from Wikipedia. Note that the marginal increase in death keeps decreasing since the peak in June 2020. Also, he new confirmed cases has dropped since July 2020, but climb up again in this year. This agree with the excellent health system that Saudi Arabia has, but the pandemic is still not under control. However, we are glad to see that the very recent August data shows the newly confirmed cases has significantly decrease to half of the increase in the previous month. 
 
 
 ```{r}
@@ -209,30 +206,52 @@ cov_sa <- sa %>%
 ```{r}
 dt1 <- cov_sa %>% 
   group_by(date) %>% 
+  filter(date != "Sep 2021") %>% 
   summarise(avg_total_cases = scales::comma(round(mean(total_cases))),
             avg_new_cases = scales::comma(round(mean(new_cases))),
-            new_cases_trend = spk_chr(total_cases, type = "line"),
+            new_cases_trend = spk_chr(new_cases, type = "line"),
             avg_total_deaths = scales::comma(round(mean(total_deaths))),
             avg_new_deaths = round(mean(new_deaths)),
             new_deaths_trend = spk_chr(new_deaths, type = "line")) %>% 
-  mutate(date = as.Date(date))
+  mutate(date = as.character(date)) 
 
 ```
 
 
-```{r}
+```{r, fig.cap= "The new confirmed cases trend was decreasing since July 2020. However, the trend climb back in Jan 2021. It is noted that the marginal increase in death is decreasing since June 2020"}
 datatable(dt1, escape = FALSE, 
             options = list(fnDrawCallback = 
-                             htmlwidgets::JS('function(){HTMLWidgets.staticRender();}'), pageLength = 5,
-                           className = 'dt-center', targets = 7,
+                             htmlwidgets::JS('function(){HTMLWidgets.staticRender();}'), pageLength = 8,
+                           className = 'dt-center', targets = 7, 
                            initComplete = JS(
     "function(settings, json) {",
     "$(this.api().table().header()).css({'background-color': '#e76f3c', 'color': '#fff'});",
     "}")), 
-            colnames = c("Month", "Total Cases", "New Cases/day", "New Cases Trend/month","Total Deaths", "New Deaths/day", "New Deaths Trend/month")) %>%
+            colnames = c("Month", "Total Cases", "New Cases", "New Cases Trend","Total Deaths", "New Deaths", "New Deaths Trend")) %>%
   spk_add_deps()
-```
+``` 
 
+# Reference
 
+- Dorsey, J.M. “Refugees and Shantytowns in MENA and Beyond Imperil Global Public Health,” Commentary No. 598. Middle East Institute. 2 April 2020. Internet: https://www.mei.org.in/commentary-598. Date accessed: 3 Sep 2021.
 
+- Frantzman, S. “COVID-19 Widens the Divide in the Fractured Middle East,” Middle East Forum. 28 March 2020. Internet: https://www.meforum.org/60653-covid-19-widens-the-divide-in-middle-east. Date accessed: 3 Sep 2021.
+
+- Hussein, S. “The Impact of Covid-19 on the Middle East and North Africa,” Jerusalem Issue Briefs. 12 Apr 2020. Internet: https://jcpa.org/article/the-impact-of-covid-19-on-the-middle-east-and-north-africa. Date accessed: 3 Sep 2021. 
+
+- Hao Zhu (2021). kableExtra: Construct Complex Table with 'kable' and Pipe Syntax. R
+  package version 1.3.4. https://CRAN.R-project.org/package=kableExtra
+
+- Yihui Xie, Joe Cheng and Xianying Tan (2021). DT: A Wrapper of the JavaScript Library
+  'DataTables'. R package version 0.18. https://CRAN.R-project.org/package=DT
+
+- Andy South (2017). rnaturalearth: World Map Data from Natural Earth. R package version
+  0.1.0. https://CRAN.R-project.org/package=rnaturalearth
+  
+- Wickham et al., (2019). Welcome to the tidyverse. Journal of Open Source Software, 4(43),
+  1686, https://doi.org/10.21105/joss.01686
+
+- Our World in Data. 2021. COVID-19 Data Explorer. [online] Available at: https://covid.ourworldindata.org/data/owid-covid-data.csv [Accessed 2 September 2021].
+
+- Rami Krispin and Jarrett Byrnes (2021). coronavirus: The 2019 Novel Coronavirus COVID-19 (2019-nCoV) Dataset. R package version 0.3.22. https://CRAN.R-project.org/package=coronavirus
 

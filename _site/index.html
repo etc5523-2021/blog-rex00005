@@ -740,6 +740,7 @@
             --mono-font:       "Fira Code", monospace;
             --body-font:       "Open Sans", sans-serif;
             --navbar-font:     "Raleway", sans-serif;  /* websites + blogs only */
+           
           }
 
           /*-- ARTICLE METADATA --*/
@@ -785,6 +786,21 @@
 
           /*-- Additional custom styles --*/
           /* Add any additional CSS rules below */
+
+          .article-banner {
+            width: auto;
+            height: auto;
+            border: 0;
+          }
+
+          img[src="Banner.jpg"] {
+            border: 0;
+            padding: 0;
+            width: 95%;
+            margin: 10px 25px 25px 25px;
+          }
+
+
 
           </style>
           <style type="text/css">
@@ -1049,7 +1065,12 @@
           <!--radix_placeholder_site_after_body-->
           <!--/radix_placeholder_site_after_body-->
           <!--radix_placeholder_navigation_after_body-->
+          <div class="distill-site-nav distill-site-footer">
+          <p>© Copyright 2018 <a href="https://github.com/distillpub/template/blob/master/AUTHORS">The Distill Template Authors</a> and <a href="https://www.rstudio.com">RStudio, Inc</a>.</p>
+          <p>MIT License Copyright (c) 2021 ETC5523: Communicating with Data 2021</p>
+          </div>
           <!--/radix_placeholder_navigation_after_body-->
+
     
   </body>
 </html>

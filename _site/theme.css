@@ -33,6 +33,7 @@ html {
   --mono-font:       "Fira Code", monospace;
   --body-font:       "Open Sans", sans-serif;
   --navbar-font:     "Raleway", sans-serif;  /* websites + blogs only */
+ 
 }
 
 /*-- ARTICLE METADATA --*/
@@ -78,5 +79,20 @@ d-appendix {
 
 /*-- Additional custom styles --*/
 /* Add any additional CSS rules below */
+
+.article-banner {
+  width: auto;
+  height: auto;
+  border: 0;
+}
+
+img[src="Banner.jpg"] {
+  border: 0;
+  padding: 0;
+  width: 95%;
+  margin: 10px 25px 25px 25px;
+}
+
+
 
 
