@@ -1,5 +1,15 @@
 ---
 title: "Xiaoyu's blog"
+image: "blog.jpg"
+links:
+  - label: LinkedIn
+    url: "https://au.linkedin.com/in/xiaoyutian"
+  - label: Github
+    url: "https://github.com/rex00005"
+  - label: Email
+    url: "xtia0004@student.monash.edu"
+output:
+  postcards::jolla
 site: distill::distill_website
 listing: posts
 ---

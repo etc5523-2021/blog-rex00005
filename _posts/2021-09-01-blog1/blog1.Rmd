@@ -8,24 +8,52 @@ date: 09-01-2021
 output:
   distill::distill_article:
     self_contained: false
+    toc: true
+    toc_float: true
+    
 ---
 
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 library(tidyverse)
-library(ggplot2)
 library(DT)
 library(sf)
-library(rnaturalearth)
 library(ggthemes)
 library(kableExtra)
-
+library(plotly)
+library(rnaturalearth)
+library(rnaturalearthdata)
+library(rgeos)
+library(ggspatial)
+library(ggrepel)
+library(lubridate)
+library(zoo)
+library(sparkline)
 ```
 
 ```{r}
 load(here::here("data/coronavirus.rda"))
 ```
+
+# What is Coronavirus
+Coronavirus disease (COVID-19) is an infectious disease caused by the SARS-CoV-2 virus. It has brought a global pandemic since December 2019. Most people who fall sick with COVID-19 will experience mild to moderate symptoms and recover without special treatment. However, some will become seriously ill and require medical attention.
+
+
+## How it spreads
+
+According to the WHO, the virus can spread from an infected person’s mouth or nose in small liquid particles when they cough, sneeze, speak, sing or breathe. You can be infected by breathing in the virus if you are near someone who has COVID-19, or by touching a contaminated surface and then your eyes, nose or mouth. The virus spreads more easily indoors and in crowded settings. Therefore, do not gathering, and wearing a mask is essential.
+
+
+# Overview of the situation in Middle East
+
+"The storm will pass, humankind will survive, most of us will still be alive, but we will inhabit a different world (Dorsey, 2020)."
+
+It is clear that the world will not be the same after this pandemic. Till now, the world has confirmed 219 million infected cases and 4.55 million deaths. This article will mainly focus the coronavirus situation in Saudi Arabia. 
+
+
+<img src="https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iCxoaVl7Q.Vc/v1/-1x-1.jpg" alt="image is from bloomberg">
+
 
 
 ```{r}
@@ -49,76 +77,134 @@ mideastname <- c("Bahrain",
 ```
 
 
-
-
 ```{r}
-mideast <- ne_countries(country = mideastname, returnclass = "sf", scale = "medium") %>% 
-  select(name, pop_est)
-
-cases <- coronavirus %>% group_by(country, lat, long, type) %>% 
+cases <- coronavirus %>% 
+  group_by(country, long, lat) %>% 
   summarise(cases = sum(cases)) %>% 
-  ungroup()
+  ungroup() %>% 
+  filter(country %in% mideastname)
 
-mideast_cases <- cases %>% right_join(mideast, by = c("country" = "name"))
+```
 
+```{r}
+world <- ne_countries(scale = "medium", returnclass = "sf") %>% select(name, pop_est)
+world_join <-  left_join(world, cases, by = c("name" = "country")) 
+plot_world_join <- world_join %>% 
+  mutate(`Cases in thousands` = cases/1000)
 ```
 
 
 ```{r}
-mideast_confirmed <- mideast_cases %>% 
-  filter(type %in% "confirmed") %>% 
-  mutate('Cases in thousands'= as.integer(cases/1000) )
+plot <- ggplot(data =  plot_world_join)+
+	geom_sf(mapping = aes(geometry = geometry,fill = `Cases in thousands`)) +
+  coord_sf(xlim = c(25, 62.5), 
+		ylim = c(12.4, 43, 
+		expand = TRUE))+
+  scale_fill_gradient2(low = "grey", mid = "white", high = "#e76f3c", midpoint = .02)+
+  geom_label_repel(data = cases, 
+		aes( long,  lat, label = country), 
+		color = "black", 
+		fontface = "bold", 
+		size = 2.5, 
+		force = 50)+
+	theme_minimal() +
+	theme(panel.background = element_rect(fill = "aliceblue"), 
+		legend.position = "right") +
+	ggtitle("Map of Middle East Covid-19 Infection Situation") +
+  xlab("Longitude")+
+  ylab("Latitude")+
+  labs(fill = "Cases in thousands ('000)") +
+  labs(subtitle  = "Total number of cases in thousand in the Middle East Regions",
+       caption = "Data source: Coronavirus Package")
 
-mideast_confirmed %>% 
-  ggplot()+
-  geom_sf(mapping = aes(geometry = geometry, fill = `Cases in thousands`), size = 0.3) +
-  theme_map()+
-  scale_fill_gradient2(low = "grey", mid = "white", high = "brown", midpoint = .02)+
-  theme(legend.position = "right", panel.background = element_rect(fill = 'aliceblue')) +
-  geom_sf_text(mapping = aes(geometry = geometry, label = country), data = mideast_confirmed, stat = "sf_coordinates", nudge_x = 0,
-  nudge_y = 0,
-  check_overlap = FALSE)+
-  labs(title = " Total number of cases (in thousands) confirmed in Middle East areas")
+plot
 ```
 
+
+
+
+
+
 ```{r}
+rank <- c("7","6","5","10", "9", "11","12","4","13","8","3","16","15","14","2","1")
+```
+
+
+
+```{r}
+mideast <- world %>% 
+  filter(name %in% mideastname)
 table_mideast <- coronavirus %>% 
   right_join(mideast, by = c("country" = "name")) %>% 
   group_by(country, pop_est) %>%
   summarise(cases = sum(cases)) %>% 
-  mutate(`Infection Rate %` = round(100*cases/pop_est, 2)) %>% 
+  mutate(`Infection Rate %` = round(100*cases/pop_est, 2)) %>%  
   arrange(desc(cases)) %>% 
+  mutate(cases = scales::comma(cases)) %>%
   rename("Country" = country,  "Population"= pop_est, "Total Number of Infection" = cases) 
-
-table_mideast$`Rank of Least Infection Rate` <- c("7","6","5","10", "9", "11","12","4","13","8","3","16","15","14","2","1")
-
+table_mideast$`Rank of the Lowest Infection Rate` <- rank
 ```
+
+
+
+
+
 ```{r}
-datatable(table_mideast,
-          options = list(),
-          class = "display",
-          caption = "Table 1: This table displays the Covid-19 infection rates in the middle east countries")
+table_mideast %>% 
+  kable(caption = "This table displays the Covid-19 infection situation in the 16 middle east countries.", 
+        align = "c") %>%  
+  row_spec(0, color = "white", background = "#e76f3c") %>% 
+  row_spec(8, background = "#e7a83c") %>% 
+  kable_styling(bootstrap_options = "striped", font_size = 12) %>% 
+  scroll_box(width = "100%", height = "400px") 
 ```
 
 
+# Situation in Saudi Arabia
 
 
 
+```{r}
+sa <- read.csv(here::here("data/owid-covid-data.csv")) 
+
+cov_sa <- sa %>% 
+  filter(location %in% "Saudi Arabia") %>% 
+  select(date, total_cases, new_cases,new_cases_smoothed, total_deaths,new_deaths, new_deaths_smoothed
+) %>% 
+  na.omit() %>% transform(date = as.yearmon(date)) 
 
 
+  
+  
+```
 
 
+```{r}
+dt1 <- cov_sa %>% 
+  group_by(date) %>% 
+  summarise(avg_total_cases = scales::comma(round(mean(total_cases))),
+            avg_new_cases = scales::comma(round(mean(new_cases))),
+            new_cases_trend = spk_chr(total_cases, type = "line"),
+            avg_total_deaths = scales::comma(round(mean(total_deaths))),
+            avg_new_deaths = round(mean(new_deaths)),
+            new_deaths_trend = spk_chr(new_deaths, type = "line")) %>% 
+  mutate(date = as.Date(date))
+
+```
 
 
-
-
-
-
-
-
-
-
-
+```{r}
+datatable(dt1, escape = FALSE, 
+            options = list(fnDrawCallback = 
+                             htmlwidgets::JS('function(){HTMLWidgets.staticRender();}'), pageLength = 5,
+                           className = 'dt-center', targets = 7,
+                           initComplete = JS(
+    "function(settings, json) {",
+    "$(this.api().table().header()).css({'background-color': '#e76f3c', 'color': '#fff'});",
+    "}")), 
+            colnames = c("Month", "Total Cases", "New Cases/day", "New Cases Trend/month","Total Deaths", "New Deaths/day", "New Deaths Trend/month")) %>%
+  spk_add_deps()
+```
 
 
 

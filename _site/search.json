@@ -6,14 +6,21 @@
       "description": "Some additional details about the blog",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-09-02T02:40:08+10:00"
+      "last_modified": "2021-09-03T08:10:21+10:00"
     },
     {
       "path": "index.html",
       "title": "Xiaoyu's blog",
       "author": [],
+      "contents": "\r\n\r\n          \r\n          \r\n          Xiaoyu's blog\r\n          \r\n          \r\n          Home\r\n          Posts\r\n          About\r\n          \r\n          \r\n          \r\n          ☰\r\n          \r\n          \r\n      \r\n        \r\n          \r\n            Xiaoyu’s blog\r\n          \r\n          \r\n            \r\n              \r\n            \r\n            \r\n              \r\n            \r\n          \r\n\r\n          \r\n            \r\n              \r\n                  \r\n                    \r\n                      LinkedIn\r\n                    \r\n                  \r\n                \r\n                                \r\n                  \r\n                    \r\n                      Github\r\n                    \r\n                  \r\n                \r\n                                \r\n                  \r\n                    \r\n                      Email\r\n                    \r\n                  \r\n                \r\n                              \r\n          \r\n\r\n          \r\n            \r\n              \r\n                                \r\n                  \r\n                    LinkedIn\r\n                  \r\n                \r\n                                \r\n                  \r\n                    Github\r\n                  \r\n                \r\n                                \r\n                  \r\n                    Email\r\n                  \r\n                \r\n                              \r\n            \r\n          \r\n        \r\n      \r\n    \r\n\r\n    \r\n    \r\n    ",
+      "last_modified": "2021-09-03T08:10:21+10:00"
+    },
+    {
+      "path": "Posts.html",
+      "title": "Posts",
+      "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-09-02T02:40:09+10:00"
+      "last_modified": "2021-09-03T08:10:21+10:00"
     }
   ],
   "collections": ["posts/posts.json"]
