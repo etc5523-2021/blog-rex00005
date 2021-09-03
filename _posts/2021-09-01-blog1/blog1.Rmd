@@ -34,6 +34,7 @@ library(sparkline)
 
 ```{r}
 load(here::here("data/coronavirus.rda"))
+sa <- read.csv(here::here("data/owid-covid-data.csv")) 
 ```
 
 # What is Coronavirus
@@ -44,17 +45,29 @@ Coronavirus disease (COVID-19) is an infectious disease caused by the SARS-CoV-2
 
 According to the WHO, the virus can spread from an infected person’s mouth or nose in small liquid particles when they cough, sneeze, speak, sing or breathe. You can be infected by breathing in the virus if you are near someone who has COVID-19, or by touching a contaminated surface and then your eyes, nose or mouth. The virus spreads more easily indoors and in crowded settings. Therefore, do not gathering, and wearing a mask is essential.
 
+# Data Description
+
+The data used for this article is obtained from [RamiKrispin's github Resitory]('https://github.com/RamiKrispin/coronavirus/blob/master/data/coronavirus.rda'), and [Our World in Data](https://covid.ourworldindata.org/data/owid-covid-data.csv). 
+
+The raw data of **coronavirus data set** contains `r nrow(coronavirus)` rows and `r ncol(coronavirus)` columns of data. And the second data set contains `r nrow(sa)` rows and `r ncol(sa)` columns of data. After the data cleaning, the variables used is shown in the following data dictionary.
+
+```{r echo=FALSE,message=FALSE,warning=FALSE}
+description <- data.frame(Variable = c("date","total_cases","new_cases","total_deaths","new_deaths"),
+                          Class = c("date", "double", "double", "double","double"),
+                          Description = c("Date of observation","Total confirmed cases","Newly confirmed cases","Total recorded deaths","	Newly recorded deaths"))
+ knitr::kable(description, booktabs = TRUE,
+  caption = "Data dictionary")%>% 
+  kable_styling(bootstrap_options = c("striped", "hover"))
+```
 
 # Overview of the situation in Middle East
 
 "The storm will pass, humankind will survive, most of us will still be alive, but we will inhabit a different world (Dorsey, 2020)."
 
-It is clear that the world will not be the same after this pandemic. Till now, the world has confirmed 219 million infected cases and 4.55 million deaths. This article will mainly focus the coronavirus situation in Saudi Arabia. 
-
 
 <img src="https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iCxoaVl7Q.Vc/v1/-1x-1.jpg" alt="image is from bloomberg">
 
-
+It is clear that the world will not be the same after this pandemic. Till now, the world has confirmed 219 million infected cases and 4.55 million deaths. This article will mainly focus the coronavirus situation in Saudi Arabia. Let's first have an overview on the situation in the Middle East.
 
 ```{r}
 #list of middle east countries
@@ -119,10 +132,24 @@ plot <- ggplot(data =  plot_world_join)+
 
 plot
 ```
+Though the Coronavirus has been wreaking havoc across the world for more than 1 year. Some countries managed to successfully slow the infection and keep mortality rates low, while others acted too slowly and ineffectively and consequently paid a huge price. Taking a look at the Covid-19 situation in the Middle East area, it's not hard to see that the Southern part of the Middle East countries have significant less infection cases compared with the northerners, such as Turkey and Iran. However, when considering the effectiveness of a country's epidemic prevention, population size should be taken into account as well. For now, let's have a look what kind of responses theses countries has imposed.
 
 
+## The threats and responses
+
+### The UAE and Saudi Arabia
+
+The UAE and Saudi Arabia have reacted pre-emptively and have contributed to flattening the curve of infections in their countries. The United Arab Emirates has been implementing social distancing measures. Saudi Arabia, meanwhile, adopted an aggressive approach towards the virus, including a curfew from dusk to dawn. 
 
 
+### Iran
+Iran’s belated response and initial denials have transformed it into the epicentre of the Covid-19 pandemic in the Middle East with tens of thousands of infections. The first reported Covid-19 deaths in the MENA region occurred in the Iranian holy city of Qom when two pilgrims died as a result of the virus. Despite this knowledge, Iran's refusal to impose a lockdown on its population in February 2020, has allowed the virus to spread into other countries, including Afghanistan, Bahrain, Kuwait and Lebanon (Frantzman, 2020).
+
+### Turkey
+Iran is not the only country that had false cognition on the coronavirus situation. When the virus first appeared in Turkey, the government underestimated the spread speed of the virus and did not imposed any social mobility, which made its densely populated cities vulerable. Also, the medical system in Turkey was challenged.
+
+
+## Covid-19 cases statistics
 
 
 ```{r}
@@ -165,7 +192,7 @@ table_mideast %>%
 
 
 ```{r}
-sa <- read.csv(here::here("data/owid-covid-data.csv")) 
+
 
 cov_sa <- sa %>% 
   filter(location %in% "Saudi Arabia") %>% 
