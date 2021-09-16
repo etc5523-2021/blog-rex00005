@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0">
+  <channel>
+    <title>Xiaoyu's blog</title>
+    <link>https://xiaoyut-blog.netlify.app</link>
+    <atom:link href="https://xiaoyut-blog.netlify.app/index.xml" rel="self" type="application/rss+xml"/>
+    <description>xtia0004
+</description>
+    <generator>Distill</generator>
+    <lastBuildDate>Wed, 15 Sep 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Covid-19 in United Arab Emirate</title>
+      <dc:creator>Xiaoyu Tian</dc:creator>
+      <link>https://xiaoyut-blog.netlify.app/posts/2021-09-16-post2</link>
+      <description>A short description of the post.</description>
+      <category>coronavirus</category>
+      <category>United Arab Emirates</category>
+      <guid>https://xiaoyut-blog.netlify.app/posts/2021-09-16-post2</guid>
+      <pubDate>Wed, 15 Sep 2021 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>COVID-19 in Saudi Arabia</title>
+      <dc:creator>Xiaoyu Tian</dc:creator>
+      <link>https://xiaoyut-blog.netlify.app/posts/2021-09-01-blog1</link>
+      <description>A short description of the post.</description>
+      <category>coronavirus</category>
+      <category>Saudi Arabia</category>
+      <guid>https://xiaoyut-blog.netlify.app/posts/2021-09-01-blog1</guid>
+      <pubDate>Wed, 01 Sep 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://xiaoyut-blog.netlify.app/posts/2021-09-01-blog1/blog1_files/figure-html5/unnamed-chunk-6-1.png" medium="image" type="image/png" width="1248" height="768"/>
+    </item>
+    <item>
+      <title>Welcome to my blog</title>
+      <dc:creator>Xiaoyu Tian</dc:creator>
+      <link>https://xiaoyut-blog.netlify.app/posts/welcome</link>
+      <description>Welcome to my new blog. I hope you enjoy 
+the reading!</description>
+      <guid>https://xiaoyut-blog.netlify.app/posts/welcome</guid>
+      <pubDate>Wed, 01 Sep 2021 00:00:00 +0000</pubDate>
+    </item>
+  </channel>
+</rss>

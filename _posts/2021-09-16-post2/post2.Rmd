@@ -1,0 +1,29 @@
+---
+title: "Covid-19 in United Arab Emirate"
+description: |
+  A short description of the post.
+author:
+  - name: Xiaoyu Tian
+    url: {}
+date: 09-16-2021
+categories:
+  - coronavirus
+  - United Arab Emirates
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+    includes:
+       in_header: banner2.html
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+Distill is a publication format for scientific and technical writing, native to the web.
+
+Learn more about using Distill at <https://rstudio.github.io/distill>.
+
+
