@@ -6,21 +6,21 @@
       "description": "Some additional details about the blog",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-09-17T19:08:38+10:00"
+      "last_modified": "2021-09-17T23:01:47+10:00"
     },
     {
       "path": "index.html",
       "title": "Xiaoyu's blog",
       "author": [],
       "contents": "\r\n\r\n          \r\n          \r\n          Xiaoyu's blog\r\n          \r\n          \r\n          Home\r\n          Posts\r\n          About\r\n          \r\n          \r\n          \r\n          ☰\r\n          \r\n          \r\n      \r\n        \r\n          \r\n            Xiaoyu’s blog\r\n          \r\n          \r\n            \r\n              \r\n            \r\n            \r\n              \r\n            \r\n          \r\n\r\n          \r\n            \r\n              \r\n                  \r\n                    \r\n                      LinkedIn\r\n                    \r\n                  \r\n                \r\n                                \r\n                  \r\n                    \r\n                      Github\r\n                    \r\n                  \r\n                \r\n                                \r\n                  \r\n                    \r\n                      Email\r\n                    \r\n                  \r\n                \r\n                              \r\n          \r\n\r\n          \r\n            \r\n              \r\n                                \r\n                  \r\n                    LinkedIn\r\n                  \r\n                \r\n                                \r\n                  \r\n                    Github\r\n                  \r\n                \r\n                                \r\n                  \r\n                    Email\r\n                  \r\n                \r\n                              \r\n            \r\n          \r\n        \r\n      \r\n    \r\n\r\n    \r\n    \r\n    \r\n          © Copyright 2018 The Distill Template Authors and RStudio, Inc.\r\n          MIT License Copyright (c) 2021 ETC5523: Communicating with Data 2021\r\n          \r\n          \r\n\r\n    \r\n  ",
-      "last_modified": "2021-09-17T19:08:39+10:00"
+      "last_modified": "2021-09-17T23:01:47+10:00"
     },
     {
       "path": "Posts.html",
       "title": "Posts",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-09-17T19:08:39+10:00"
+      "last_modified": "2021-09-17T23:01:48+10:00"
     }
   ],
   "collections": ["posts/posts.json"]

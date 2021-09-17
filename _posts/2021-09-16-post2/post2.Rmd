@@ -4,7 +4,6 @@ description: |
   This article is about the covid-19 situation in United Arab Emirate, and how UAE responses to this pandemic.
 author:
   - name: Xiaoyu Tian
-    url: {}
 date: 09-16-2021
 categories:
   - coronavirus
@@ -212,8 +211,7 @@ ggplotly(p4)
 
 ```
 
-The above figures futher explore the daily and weekly trend of the case confirmed and deaths in the United Arab Emirates.
-
+The above figures further explore the daily and weekly trend of the case confirmed and deaths in the United Arab Emirates. Clearly, it shows that the average cases and average deaths share the similar trend. In 2020, the average cases and deaths had a fluctuating trend. The trend increased sharply from March to May, new cases increased from 53 to 661 weekly, with death numbers from 1 to 7. After that, there was a clear down trend until end of July. Towards the end of 2020, there are around 1000 cases confirmed weekly and it continues growing until January 2021 - the highest new case and death numbers confirmed throughout the two years, 2948 new cases with 12 new deaths in 31/1/2021. Although we can see the cases continued to climb up during March and April 2020, the number of death is sharply dropped. This could suggest the health system in UAE is working effectively. Also, there is a sharp drop in both cases confirmed and death numbers since the start of 2021. This could be due to some effective restrictions implemented in UAE. 
 
 
 
@@ -228,7 +226,7 @@ The above figures futher explore the daily and weekly trend of the case confirme
 
 ## Responses to the Coronavirus
 
-The UAE response rapidly to the covid. One of the leading countries in the covid test around the world.
+The United Arab Emirates have reacted pre-emptively and have contributed to flattening the curve of infections in their countries. The United Arab Emirates has been implementing social distancing measures, also an aggressive approach towards the virus has been adopted , including a curfew from dusk to dawn. (Frantzman, 2020). During this pandemic, the entire health care system was prepared and alerted with protocols in place for efficient handling of the crisis.(Al Hosany, 2021)
 
 ```{r}
 test_10 <- owid %>% 
@@ -271,6 +269,9 @@ p_test_10 <- p_test %>%
 ggplotly(p_test_10)
 ```
 
+By comparing the trend of the world top 10 countires with the most covid tests, we can see that UAE ranges the second in testing Covid since July 2020. As per the record, there are 2106 tests completed among 1000 people in January 2021, which is only 500 tests short comparing with the top 1 country – Luxembourg. Clearly, UAE governments and people are both taking positive actions against this disaster.
+
+
 ```{r, fig.width = 8}
 fct_labels <- c("people_fully_vaccinated" = "People fully vaccinated",
            "people_vaccinated" = "People vaccinated one dose",
@@ -307,12 +308,15 @@ animate(plot = p2,
 anim_save("p2.gif")
 ```
 
+Fortunately, the vaccination for COVID has been introduced worldwidely in early 2021. From this growing trend in people who are vaccinated, we can see that there is a rapid growth in the UAE percentage of vaccination. 70% of the people in UAE have vaccinated at least one does in July 2021. A month later, people who are fully vaccinated reaches to 70%, which means herd immunity could be achieved or will be a possible resolution from there.
 
 # Reference
 
 - Dorsey, J.M. “Refugees and Shantytowns in MENA and Beyond Imperil Global Public Health,” Commentary No. 598. Middle East Institute. 2 April 2020. Internet: https://www.mei.org.in/commentary-598. Date accessed: 3 Sep 2021.
 
 - Frantzman, S. “COVID-19 Widens the Divide in the Fractured Middle East,” Middle East Forum. 28 March 2020. Internet: https://www.meforum.org/60653-covid-19-widens-the-divide-in-middle-east. Date accessed: 3 Sep 2021.
+
+- Al Hosany, F. "Response to COVID-19 pandemic in the UAE: A public health perspective — JOGH", [online] Available at: <https://jogh.org/response-to-covid-19-pandemic-in-the-uae-a-public-health-perspective/> [Accessed 17 September 2021].
 
 - Hussein, S. “The Impact of Covid-19 on the Middle East and North Africa,” Jerusalem Issue Briefs. 12 Apr 2020. Internet: https://jcpa.org/article/the-impact-of-covid-19-on-the-middle-east-and-north-africa. Date accessed: 3 Sep 2021. 
 
