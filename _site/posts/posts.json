@@ -2,7 +2,7 @@
   {
     "path": "posts/2021-09-16-post2/",
     "title": "Covid-19 in United Arab Emirate",
-    "description": "A short description of the post.",
+    "description": "This article is about the covid-19 situation in United Arab Emirate, and how UAE responses to this pandemic.",
     "author": [
       {
         "name": "Xiaoyu Tian",
@@ -16,13 +16,13 @@
     ],
     "contents": "\r\n      \r\n        \r\n      \r\n    \r\n  ",
     "preview": {},
-    "last_modified": "2021-09-17T00:44:31+10:00",
-    "input_file": "post2.knit.md"
+    "last_modified": "2021-09-17T18:59:17+10:00",
+    "input_file": {}
   },
   {
     "path": "posts/2021-09-01-blog1/",
     "title": "COVID-19 in Saudi Arabia",
-    "description": "A short description of the post.",
+    "description": "This article is about the Covid-19 situation in Saudi Arabia, and what the threats and responses are in the Middle East Area.",
     "author": [
       {
         "name": "Xiaoyu Tian",
@@ -36,7 +36,7 @@
     ],
     "contents": "\r\n      \r\n        \r\n      \r\n    \r\n  ",
     "preview": "posts/2021-09-01-blog1/blog1_files/figure-html5/unnamed-chunk-6-1.png",
-    "last_modified": "2021-09-16T23:43:02+10:00",
+    "last_modified": "2021-09-17T18:01:07+10:00",
     "input_file": {},
     "preview_width": 1248,
     "preview_height": 768

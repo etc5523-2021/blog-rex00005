@@ -1,7 +1,7 @@
 ---
 title: "Covid-19 in United Arab Emirate"
 description: |
-  A short description of the post.
+  This article is about the covid-19 situation in United Arab Emirate, and how UAE responses to this pandemic.
 author:
   - name: Xiaoyu Tian
     url: {}
@@ -20,10 +20,326 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+library(ggthemes)
+library(lubridate)
+library(plotly)
+library(gganimate)
+library(gifski)
+library(kableExtra)
 ```
 
-Distill is a publication format for scientific and technical writing, native to the web.
 
-Learn more about using Distill at <https://rstudio.github.io/distill>.
+
+
+```{r}
+owid <- read.csv(here::here("data/owid-covid-data-9-17.csv")) 
+```
+
+```{r}
+#list of middle east countries
+mideastname <- c("Bahrain",
+ "Cyprus",
+ "Egypt",
+ "Iran",
+ "Iraq",
+ "Israel",
+ "Jordan",
+ "Kuwait",
+ "Lebanon",
+ "Oman",
+ "Qatar",
+ "Saudi Arabia",
+ "Syria",
+ "Turkey",
+ "United Arab Emirates",
+ "Yemen")
+```
+
+<img src="https://assets.weforum.org/project/image/fGw-z72n819vk-j6CJ-FLosp-CyKRHPxvVrQzwyiTMY.jpeg" alt="image is from The world economy forum">
+
+This article will statistically explore the coronavirus situations in the middle east area and especially in the United Arab Emirates, as well as how the United Arab Emirates fought this pandemic.
+
+# Data description
+
+The data used for this article is obtained from [Our World in Data](https://covid.ourworldindata.org/data/owid-covid-data.csv). 
+
+The data set contains `r nrow(owid)` rows and `r ncol(owid)` columns of data. After the data cleaning, the variables used is shown in the following data dictionary.
+
+```{r echo=FALSE,message=FALSE,warning=FALSE}
+description <- data.frame(
+  Variable = c("date","location","total_cases","new_cases",
+               "total_deaths","new_deaths",
+               "total_tests_per_thousand",
+               "total_vaccinations", 
+               "people_vaccinated",
+               "people_fully_vaccinated"),
+  Class = c("date","double","double","double","double",
+            "double","double","double","double", "double"
+            ),
+  Description = c("Date of observation",
+                  "Countries",
+                  "Total confirmed cases",
+                  "Newly confirmed cases",
+                  "Total recorded deaths",
+                  "Newly recorded deaths",
+                  "Total number of tests per thousand",
+                  "Total number of vaccination",
+                  "Number of people has one vaccine",
+                  "Number of people fully vaccined"))
+ 
+knitr::kable(description, booktabs = TRUE,
+  caption = "Data dictionary")%>% 
+  kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+
+
+
+
+# Data Story 1
+
+## Overview Covid-19 situation in Middle East and UAE
+
+
+
+
+
+```{r}
+mideast <- owid %>% 
+  filter(location %in% mideastname)%>% 
+  select(iso_code, location, date, total_cases, new_cases,
+         new_deaths, total_deaths) %>% 
+   filter(date == '2020-01-31'|date =='2020-02-28'|date =='2020-03-31'|date =='2020-04-30'|date =='2020-05-31'|date =='2020-06-30'|date =='2020-07-31'|date =='2020-08-31'|date =='2020-09-30'|date =='2020-10-31'|date =='2020-11-30'|date =='2020-12-31'|date =='2021-01-31'|date =='2021-02-28'|date =='2021-03-31'|date =='2021-04-30'|date =='2021-05-31'|date =='2021-06-30'|date =='2021-07-31'|date =='2021-08-31')
+```
+
+
+
+```{r, fig.width = 8}
+map <- mideast %>% 
+  select(date, location, total_cases, iso_code) %>% 
+  mutate(hover = paste0(location, "\n", "Cases:", "\n",total_cases)) 
+
+graph = plot_geo(map,
+                 locations = ~mideastname,
+                 frame = ~date) %>% 
+  add_trace(locations = ~iso_code,
+            z = ~total_cases,
+            zmin = 0,
+            zmax = max(map$total_cases),
+            color = ~total_cases,
+            text = ~hover,
+            hoverinfo = 'text') %>% 
+  layout(geo = list( fitbounds = "locations"),
+         title = "Number of confirmed cases in Middle East") %>% 
+  colorbar(title = "Total cases confirmed")
+
+graph
+```
+
+By clicking on the `Play` button, the graph shows an animation on how the total number of covid confirmed cases changed in the middle east area. We can see that the overall infections in the middle east area remained low until end of the year 2020. In Dec 2020, the situation in Turkey starts to outbreak and lose control, and it is followed by Iran. As for the United Arab Emirates, we can see that it remains low infections compared to its neighbour countries in the middle east area. 
+
+
+## Covid-19 in UAE
+```{r}
+
+uae <- mideast %>% 
+  filter(location %in% "United Arab Emirates")
+uae_trend <-uae %>% 
+  select(location, date, new_cases, new_deaths) %>% 
+  mutate(date = as.Date(date))
+
+uae_week <- uae  %>% 
+  mutate(date = as.Date(date)) %>% 
+  mutate(week = floor_date(date, "week")) %>% 
+  group_by(week) %>% 
+  summarise(new_cases = mean(new_cases),
+            new_deaths = mean(new_deaths))
+
+```
+
+
+```{r}
+p3 <- uae_week %>% 
+  ggplot(aes(x = week,
+             y = new_cases)) +
+  geom_col(fill = "light grey")+
+  geom_line(data = uae_trend, aes(x = date, y = new_cases),
+            color = "#e76f3c",size = 1)+
+  theme_minimal()+
+  labs(title = "Trend of daily & weekly average cases",
+       x = "Date",
+       y = "Number of cases confirmed")+
+  annotate("text",
+           x = as.Date("2021-03-28"),
+           y = 3300,
+           label = "daily cases",
+           color = "grey")+
+  annotate("text",
+           x = as.Date("2020-05-31"),
+           y = 1000,
+           label = "Weekly average trend",
+           color = "#e76f3c")
+ggplotly(p3)
+
+
+
+```
+```{r}
+p4 <- uae_week %>% 
+  ggplot(aes(x = week,
+             y = new_deaths)) +
+  geom_col(fill = "light grey")+
+  geom_line(data = uae_trend, aes(x = date, y = new_deaths),
+            color = "#e76f3c",size = 1)+
+  theme_minimal()+
+  labs(title = "Trend of daily & weekly average deaths",
+       x = "Date",
+       y = "Number of deaths")+
+  annotate("text",
+           x = as.Date("2021-03-31"),
+           y = 12,
+           label = "daily deaths")+
+  annotate("text",
+           x = as.Date("2020-04-26"),
+           y = 8,
+           label = "Weekly average trend",
+           color = "grey")
+  
+ggplotly(p4)
+
+
+
+```
+
+The above figures futher explore the daily and weekly trend of the case confirmed and deaths in the United Arab Emirates.
+
+
+
+
+
+
+
+
+
+
+
+# Data story 2
+
+## Responses to the Coronavirus
+
+The UAE response rapidly to the covid. One of the leading countries in the covid test around the world.
+
+```{r}
+test_10 <- owid %>% 
+  select(location, date,
+         total_tests,
+         population) %>% 
+  filter(date == "2020-12-31")%>% 
+  mutate(test_per = total_tests/population) %>% 
+  arrange(-test_per) %>% 
+  head(10)
+test_10_countries <- test_10$location  
+```
+
+```{r, fig.width = 8}
+p_test <- owid %>% 
+  filter(location %in% test_10_countries) %>% 
+  select(location, 
+         date,
+         total_tests_per_thousand,
+         population,
+         total_vaccinations, people_vaccinated, people_fully_vaccinated) %>% 
+  mutate(date = as.Date(date)) %>% 
+  filter(date <= "2020-12-31") %>% 
+  mutate(test_per = total_tests_per_thousand*1000/population)
+
+p_test$location <- factor(p_test$location, 
+                          levels = test_10_countries)
+
+p_test_10 <- p_test %>% 
+  ggplot(aes(x = date,
+             y = total_tests_per_thousand, 
+             colour = location), 
+             alpha = 0.8)+
+  geom_smooth()+
+  theme_bw()+
+  labs(x = "Date",
+       y = "Number of tests per 1000 people",
+       title = "Time series for world top 10 countries in testing Covid",
+       colour = "")
+ggplotly(p_test_10)
+```
+
+```{r, fig.width = 8}
+fct_labels <- c("people_fully_vaccinated" = "People fully vaccinated",
+           "people_vaccinated" = "People vaccinated one dose",
+           "total_vaccinations" = "Total vaccinations")
+
+p2 <- owid %>% 
+  filter(location %in% "United Arab Emirates") %>% 
+   select(date, total_vaccinations, people_vaccinated, people_fully_vaccinated, population) %>% 
+  mutate(date = as.Date(date)) %>% 
+  na.omit() %>% 
+  pivot_longer(cols = c("total_vaccinations", "people_vaccinated", "people_fully_vaccinated" ),
+               names_to = "type",
+               values_to = "number") %>% 
+  mutate(vac_per = round(number*100/population,2))%>% 
+  ggplot(aes(x = date, y = vac_per, fill = type))+
+  geom_area()+
+  facet_wrap(~type, scales = "free", labeller = labeller(type = fct_labels))+
+  scale_fill_brewer(labels = c("People fully vaccinated",
+                               "People vaccinated one dose",
+                               "Total vaccinations"),
+                    palette = "Set1")+
+  theme_bw()+
+  geom_hline(yintercept = 70, linetype="dotted")+
+  labs(title = "",
+       x = "",
+       y = "Percantage of vaccination",
+       fill = "")+
+  theme(legend.position = "bottom") +
+  transition_reveal(date)
+
+animate(plot = p2, 
+        renderer = gifski_renderer(),
+        fps = 10)
+anim_save("p2.gif")
+```
+
+
+# Reference
+
+- Dorsey, J.M. “Refugees and Shantytowns in MENA and Beyond Imperil Global Public Health,” Commentary No. 598. Middle East Institute. 2 April 2020. Internet: https://www.mei.org.in/commentary-598. Date accessed: 3 Sep 2021.
+
+- Frantzman, S. “COVID-19 Widens the Divide in the Fractured Middle East,” Middle East Forum. 28 March 2020. Internet: https://www.meforum.org/60653-covid-19-widens-the-divide-in-middle-east. Date accessed: 3 Sep 2021.
+
+- Hussein, S. “The Impact of Covid-19 on the Middle East and North Africa,” Jerusalem Issue Briefs. 12 Apr 2020. Internet: https://jcpa.org/article/the-impact-of-covid-19-on-the-middle-east-and-north-africa. Date accessed: 3 Sep 2021. 
+
+- Hao Zhu (2021). kableExtra: Construct Complex Table with 'kable' and Pipe Syntax. R
+  package version 1.3.4. https://CRAN.R-project.org/package=kableExtra
+
+- Wickham et al., (2019). Welcome to the tidyverse. Journal of Open Source Software, 4(43),
+  1686, https://doi.org/10.21105/joss.01686
+  
+- Garrett Grolemund, Hadley Wickham (2011). Dates and Times Made Easy with lubridate. Journal of Statistical Software, 40(3), 1-25. URL https://www.jstatsoft.org/v40/i03/.
+
+- Thomas Lin Pedersen and David Robinson (2020). gganimate: A Grammar of Animated Graphics. R package version 1.0.7.
+  https://CRAN.R-project.org/package=gganimate
+
+- Our World in Data. 2021. COVID-19 Data Explorer. [online] Available at: https://covid.ourworldindata.org/data/owid-covid-data.csv [Accessed 2 September 2021].
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

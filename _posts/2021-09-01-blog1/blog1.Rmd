@@ -1,7 +1,7 @@
 ---
 title: "COVID-19 in Saudi Arabia"
 description: |
-  A short description of the post.
+  This article is about the Covid-19 situation in Saudi Arabia, and what the threats and responses are in the Middle East Area.
 author:
   - name: Xiaoyu Tian
 date: 09-01-2021
