@@ -10,7 +10,7 @@ This assessment is due Fri Sep 3 2021 11.55PM AEST.
 
 My selected country is [Saudi Arabia].
 
-The relevant blog post for this assessment is in [blog1].html
+The relevant blog post for this assessment is in [https://xiaoyut-blog.netlify.app/posts/2021-09-01-blog1/].html
 
 - [ ] Selected a country
 - [ ] Website with R markdown 
@@ -26,9 +26,9 @@ The relevant blog post for this assessment is in [blog1].html
 
 This assessment is due Fri Sep 17 2021 11.55PM AEST.
 
-My selected country is [FILL].
+My selected country is [United Arab Emirates].
 
-The relevant blog post for this assessment is in [FILL].html
+The relevant blog post for this assessment is in [https://xiaoyut-blog.netlify.app/posts/2021-09-16-post2/].html
 
 - [ ] Selected a new country
 - [ ] Data Story 1
